@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    container_name: spring-mvc-g1-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/gestion_g1_spring_mvc
+
+  db:
+    image: postgres:16
+    container_name: spring-mvc-g1-db
+    restart: always
+    environment:
+      POSTGRES_DB: gestion_g1_spring_mvc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
